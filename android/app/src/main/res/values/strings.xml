@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bike Hunter</string>
+    <string name="facebook_app_id">465478712103952</string>
+    <string name="fb_login_protocol_scheme">465478712103952</string>
+    <string name="facebook_client_token">90cf614240477e46094fd05db0d2837f</string>
+</resources>
