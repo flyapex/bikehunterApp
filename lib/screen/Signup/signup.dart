@@ -1,5 +1,10 @@
+import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:bikehunter/controller/db_controller.dart';
+import 'package:bikehunter/controller/login_controller.dart';
+import 'package:bikehunter/model/login_model.dart';
 import 'package:bikehunter/screen/Signup/login.dart';
+import 'package:bikehunter/screen/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
@@ -10,13 +15,15 @@ class SignUpWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String passWardGenerator(int len) {
-    //   var r = Random();
-    //   const _chars =
-    //       'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    //   return List.generate(len, (index) => _chars[r.nextInt(_chars.length)])
-    //       .join();
-    // }
+    final LoginController loginController = Get.put(LoginController());
+    final DBController db_Controller = Get.find();
+    String passWardGenerator(int len) {
+      var r = Random();
+      const chars =
+          'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+      return List.generate(len, (index) => chars[r.nextInt(chars.length)])
+          .join();
+    }
 
     return Stack(
       children: [
@@ -144,22 +151,29 @@ class SignUpWidget extends StatelessWidget {
                     if (result.status == LoginStatus.success) {
                       FacebookAuth.i.getUserData().then(
                         (user) async {
-                          print(user['name']);
-                          print(user['email']);
-                          print(user['id']);
-                          print(user['picture']['data']['url']);
-                          // var uid = await loginController
-                          //     .userChackFacebook(user["id"]);
-
-                          // if (uid == null) {
-                          //   //*-----------User Not exist----------
-                          //   print("User done't exist");
-                          // } else {
-                          //   //*-----------User exist----------
-                          //   Get.offAll(() => const HomeView());
-                          //   databaseController.setUserId(uid);
-                          //   databaseController.loginUpdate(true);
-                          // }
+                          var uid =
+                              await loginController.usercheckFB(user["id"]);
+                          if (uid == 0) {
+                            //-----------User Not exist----------
+                            var response = await loginController.creatNewUser(
+                              NewUser(
+                                fb: user["id"],
+                                tcaller: '',
+                                email: user["email"],
+                                name: user["name"],
+                                image: user["picture"]["data"]["url"],
+                                phone: '',
+                                pass: passWardGenerator(6),
+                                wappnumber: '',
+                              ),
+                            );
+                            db_Controller.saveUserId(response);
+                            Get.offAll(() => const HomePage());
+                          } else {
+                            //-----------User exist----------
+                            db_Controller.saveUserId(uid);
+                            Get.offAll(() => const HomePage());
+                          }
                         },
                       );
                     }

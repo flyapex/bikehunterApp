@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       darkTheme: Themes.darkTheme,
       debugShowCheckedModeBanner: false,
       // home: const HomePage(),
-      home: dbController.isLogin() ? const HomePage() : const SLHome(),
+      home: dbController.isLogin() == 0 ? const SLHome() : const HomePage(),
     );
   }
 }

@@ -1,5 +1,12 @@
+import 'dart:math';
+
+import 'package:bikehunter/controller/db_controller.dart';
+import 'package:bikehunter/controller/login_controller.dart';
+import 'package:bikehunter/model/login_model.dart';
 import 'package:bikehunter/screen/Signup/sl_home.dart';
+import 'package:bikehunter/screen/home/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'widget/socialiconlogin.dart';
@@ -17,6 +24,15 @@ class _LogInState extends State<LogIn> {
   var passLabelText = "Password";
   var passHintText = "";
   var flote = false;
+
+  final LoginController loginController = Get.find();
+  final DBController db_Controller = Get.find();
+  String passWardGenerator(int len) {
+    var r = Random();
+    const chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    return List.generate(len, (index) => chars[r.nextInt(chars.length)]).join();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +100,38 @@ class _LogInState extends State<LogIn> {
               ),
               const SizedBox(height: 20),
               InkWell(
-                onTap: () async {},
+                onTap: () async {
+                  final LoginResult result = await FacebookAuth.instance
+                      .login(loginBehavior: LoginBehavior.webOnly);
+                  if (result.status == LoginStatus.success) {
+                    FacebookAuth.i.getUserData().then(
+                      (user) async {
+                        var uid = await loginController.usercheckFB(user["id"]);
+                        if (uid == 0) {
+                          //-----------User Not exist----------
+                          var response = await loginController.creatNewUser(
+                            NewUser(
+                              fb: user["id"],
+                              tcaller: '',
+                              email: user["email"],
+                              name: user["name"],
+                              image: user["picture"]["data"]["url"],
+                              phone: '',
+                              pass: passWardGenerator(6),
+                              wappnumber: '',
+                            ),
+                          );
+                          db_Controller.saveUserId(response);
+                          Get.offAll(() => const HomePage());
+                        } else {
+                          //-----------User exist----------
+                          db_Controller.saveUserId(uid);
+                          Get.offAll(() => const HomePage());
+                        }
+                      },
+                    );
+                  }
+                },
                 child: const Center(
                   child: SocialIconsLogin(
                     iconsize: 32,

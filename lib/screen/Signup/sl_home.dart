@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 import 'signup.dart';
 
 class SLHome extends StatefulWidget {
@@ -10,17 +9,17 @@ class SLHome extends StatefulWidget {
 }
 
 class _SLHomeState extends State<SLHome> {
-  late VideoPlayerController _controller;
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.asset("assets/video/1.mp4")
-      ..initialize().then((value) {
-        _controller.play();
-        _controller.setLooping(true);
-        setState(() {});
-      });
-  }
+  // late VideoPlayerController _controller;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _controller = VideoPlayerController.asset("assets/video/1.mp4")
+  //     ..initialize().then((value) {
+  //       _controller.play();
+  //       _controller.setLooping(true);
+  //       setState(() {});
+  //     });
+  // }
 
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,6 @@
+import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/themes_controller.dart';
+import 'package:bikehunter/screen/Signup/sl_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeController themeController = Get.find();
+    final DBController db_Controller = Get.find();
 
     return Obx(
       () => Scaffold(
@@ -32,6 +35,13 @@ class HomePage extends StatelessWidget {
               },
             ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            db_Controller.saveUserId(0);
+            Get.offAll(() => const SLHome());
+          },
+          child: Icon(Icons.add),
         ),
         body: Column(
           children: [

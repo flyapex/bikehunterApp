@@ -6,28 +6,14 @@ class DBController extends GetxController {
   // ignore: non_constant_identifier_names
   final _login_key = 'islogin';
 
-  //* LOGIN CHECK
+  // bool isLogin() => _box.read(_login_key) ?? false; //check initial value
 
-  //check initial value
-  bool isLogin() => _box.read(_login_key) ?? false;
+  // void saveTheme(bool login) => _box.write(_login_key, login); //Update Vlaue
 
-  //Update Vlaue
-  void saveTheme(bool login) => _box.write(_login_key, login);
+//!----------------------------------------------------- uid storage -----------------------------------------------------
+  // ignore: non_constant_identifier_names
+  // final _uid_key = 'uid';
 
-//!-----------------------------------------------------
-  // updateUserID(int value) async {
-  //   var preferences = await SharedPreferences.getInstance();
-  //   preferences.setInt('uid', value);
-  // }
-  setUserId(int value) async {
-    // final prefs = await SharedPreferences.getInstance();
-    // await prefs.setInt('uid', value);
-  }
-
-  getUserID() async {
-    // var preferences = await SharedPreferences.getInstance();
-    // int? uid = preferences.getInt('uid');
-    // return uid;
-  }
-  //* LOGIN CHECK END
+  int isLogin() => _box.read(_login_key) ?? 0;
+  saveUserId(int value) => _box.write(_login_key, value);
 }
