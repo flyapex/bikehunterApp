@@ -26,7 +26,7 @@ class _LogInState extends State<LogIn> {
   var flote = false;
 
   final LoginController loginController = Get.find();
-  final DBController db_Controller = Get.find();
+  final DBController dbController = Get.find();
   String passWardGenerator(int len) {
     var r = Random();
     const chars =
@@ -121,11 +121,11 @@ class _LogInState extends State<LogIn> {
                               wappnumber: '',
                             ),
                           );
-                          db_Controller.saveUserId(response);
+                          dbController.saveUserId(response);
                           Get.offAll(() => const HomePage());
                         } else {
                           //-----------User exist----------
-                          db_Controller.saveUserId(uid);
+                          dbController.saveUserId(uid);
                           Get.offAll(() => const HomePage());
                         }
                       },

@@ -1,6 +1,5 @@
 import 'package:bikehunter/api/api_service.dart';
 import 'package:bikehunter/model/login_model.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class LoginController extends GetxController {

@@ -16,4 +16,10 @@ class DBController extends GetxController {
 
   int isLogin() => _box.read(_login_key) ?? 0;
   saveUserId(int value) => _box.write(_login_key, value);
+
+  String getdis() => _box.read('dis') ?? 'Dhaka';
+  saveUserdis(String value) => _box.write('dis', value);
+
+  String getcity() => _box.read('city') ?? 'Dhaka';
+  saveUsercity(String value) => _box.write('city', value);
 }

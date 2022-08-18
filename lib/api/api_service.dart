@@ -1,4 +1,4 @@
-import 'package:bikehunter/model/login_model.dart';
+import 'package:bikehunter/model/location_model.dart';
 import 'package:dio/dio.dart';
 
 var baseUrl = 'http://bikehunter.xyz/api';
@@ -55,6 +55,35 @@ class ApiService {
       return response.data['insertId'];
     } catch (e) {
       print(e);
+    }
+  }
+
+  // get current cloation
+  static Future getlocation(uid) async {
+    var response = await dio.post(
+      '$baseUrl/getlocation',
+      data: {"uid": uid},
+      options: Options(headers: headers),
+    );
+
+    if (response.statusCode == 200) {
+      return LocationModel.fromJson(response.data[0]);
+    } else {
+      return null;
+    }
+  }
+
+  // update current location
+  static Future setLocaation(data) async {
+    var response = await dio.post(
+      '$baseUrl/setlocation',
+      data: data,
+      options: Options(headers: headers),
+    );
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      return null;
     }
   }
 }

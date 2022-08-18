@@ -43,6 +43,7 @@ dependencies:
   http: ^0.13.5
   dio: ^4.0.6
   flutter_facebook_auth: ^4.4.1 
+  connectivity_plus: ^2.3.6+1
   
 
 dev_dependencies:
@@ -74,6 +75,7 @@ flutter:
   assets:
     - assets/video/
     - assets/icons/
+    - assets/icons/home/
     - assets/icons/sl/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,10 +1,10 @@
+import 'package:bikehunter/screen/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'controller/db_controller.dart';
 import 'screen/Signup/sl_home.dart';
-import 'screen/home/home.dart';
 import 'theme/theme.dart';
 import 'controller/themes_controller.dart';
 
@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
       theme: Themes.lightTheme,
       darkTheme: Themes.darkTheme,
       debugShowCheckedModeBanner: false,
-      // home: const HomePage(),
-      home: dbController.isLogin() == 0 ? const SLHome() : const HomePage(),
+      home: dbController.isLogin() == 0 ? const SLHome() : const HomeView(),
+      // home: const HomeView(),
     );
   }
 }

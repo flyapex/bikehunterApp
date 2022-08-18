@@ -38,7 +38,7 @@ class _SLHomeState extends State<SLHome> {
           //   ),
           // ),
           Container(
-            color: Colors.redAccent,
+            color: Colors.deepPurpleAccent,
           ),
           const SignUpWidget()
         ],

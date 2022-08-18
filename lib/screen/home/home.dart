@@ -1,57 +1,79 @@
+import 'package:bikehunter/constants/colors.dart';
 import 'package:bikehunter/controller/db_controller.dart';
-import 'package:bikehunter/controller/themes_controller.dart';
-import 'package:bikehunter/screen/Signup/sl_home.dart';
+import 'package:bikehunter/controller/navigation_controller.dart';
+import 'package:bikehunter/screen/home/widget/app_bar.dart';
+import 'package:bikehunter/screen/signup/sl_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final ThemeController themeController = Get.find();
-    final DBController db_Controller = Get.find();
+  State<HomePage> createState() => _HomePageState();
+}
 
-    return Obx(
-      () => Scaffold(
-        backgroundColor: themeController.bgColor.value,
-        appBar: AppBar(
-          title: const Text('Bike Hunter'),
-          actions: [
-            IconButton(
-              icon: Icon(
-                Get.isDarkMode ? FontAwesome.moon_o : FontAwesome.sun_o,
+class _HomePageState extends State<HomePage> {
+  final NavbarController postController = Get.put(NavbarController());
+  final DBController dbController = Get.put(DBController());
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      extendBodyBehindAppBar: true,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        onPressed: () {
+          dbController.saveUserId(0);
+          Get.offAll(() => const SLHome());
+        },
+        child: const Icon(
+          Feather.log_out,
+          color: Colors.white,
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20),
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
+            slivers: [
+              const CustomeAppBar(),
+              const SliverToBoxAdapter(
+                child: SizedBox(
+                  height: 20,
+                ),
               ),
-              onPressed: () {
-                if (Get.isDarkMode) {
-                  themeController.changeThemeMode(ThemeMode.light);
-                  themeController.saveTheme(false);
-                } else {
-                  themeController.changeThemeMode(ThemeMode.dark);
-                  themeController.saveTheme(true);
-                }
-                themeController.changeBackGroundColor();
-              },
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            db_Controller.saveUserId(0);
-            Get.offAll(() => const SLHome());
-          },
-          child: Icon(Icons.add),
-        ),
-        body: Column(
-          children: [
-            Container(
-              height: 200,
-              width: 200,
-              color: Colors.redAccent,
-            ),
-            Text(Get.isDarkMode.toString()),
-          ],
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 15),
+                      child: Text(
+                        "FEATURED",
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: kTEXT1,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 20),
+              ),
+            ],
+          ),
         ),
       ),
     );
