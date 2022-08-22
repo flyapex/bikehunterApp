@@ -24,10 +24,11 @@ class LoginController extends GetxController {
     try {
       isLoading(true);
       var response = await ApiService.createNewUser(data);
-      if (response != 0) {
+      if (response != null) {
+        print(response);
         return response;
       } else {
-        return 0;
+        return null;
       }
     } finally {
       isLoading(false);

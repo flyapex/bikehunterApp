@@ -24,12 +24,9 @@ class Uidmodel {
 }
 
 // new user model
+NewUser newUserFromJson(String str) => NewUser.fromJson(json.decode(str));
 
-List<NewUser> newUserFromJson(String str) =>
-    List<NewUser>.from(json.decode(str).map((x) => NewUser.fromJson(x)));
-
-String newUserToJson(List<NewUser> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String newUserToJson(NewUser data) => json.encode(data.toJson());
 
 class NewUser {
   NewUser({
@@ -72,5 +69,48 @@ class NewUser {
         "pass": pass,
         "phone": phone,
         "wappnumber": wappnumber,
+      };
+}
+
+// new user create response model
+
+NweuserRes nweuserResFromJson(String str) =>
+    NweuserRes.fromJson(json.decode(str));
+
+String nweuserResToJson(NweuserRes data) => json.encode(data.toJson());
+
+class NweuserRes {
+  NweuserRes({
+    required this.fieldCount,
+    required this.affectedRows,
+    required this.insertId,
+    required this.info,
+    required this.serverStatus,
+    required this.warningStatus,
+  });
+
+  int fieldCount;
+  int affectedRows;
+  int insertId;
+  String info;
+  int serverStatus;
+  int warningStatus;
+
+  factory NweuserRes.fromJson(Map<String, dynamic> json) => NweuserRes(
+        fieldCount: json["fieldCount"],
+        affectedRows: json["affectedRows"],
+        insertId: json["insertId"],
+        info: json["info"],
+        serverStatus: json["serverStatus"],
+        warningStatus: json["warningStatus"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "fieldCount": fieldCount,
+        "affectedRows": affectedRows,
+        "insertId": insertId,
+        "info": info,
+        "serverStatus": serverStatus,
+        "warningStatus": warningStatus,
       };
 }

@@ -5,6 +5,7 @@ import 'package:bikehunter/controller/login_controller.dart';
 import 'package:bikehunter/model/login_model.dart';
 import 'package:bikehunter/screen/Signup/sl_home.dart';
 import 'package:bikehunter/screen/home/home.dart';
+import 'package:bikehunter/screen/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
@@ -107,7 +108,7 @@ class _LogInState extends State<LogIn> {
                     FacebookAuth.i.getUserData().then(
                       (user) async {
                         var uid = await loginController.usercheckFB(user["id"]);
-                        if (uid == 0) {
+                        if (uid == null) {
                           //-----------User Not exist----------
                           var response = await loginController.creatNewUser(
                             NewUser(
@@ -121,8 +122,24 @@ class _LogInState extends State<LogIn> {
                               wappnumber: '',
                             ),
                           );
+                          // if (response == null) {
+                          //   Get.snackbar(
+                          //     'Sorry ',
+                          //     'User Can\'t Create',
+                          //     snackPosition: SnackPosition.BOTTOM,
+                          //     backgroundColor: Colors.white,
+                          //     borderRadius: 10,
+                          //     margin: const EdgeInsets.all(10),
+                          //   );
+                          // } else {
+                          //   dbController.saveUserId(response);
+                          //   Get.offAll(() => const HomePage());
+                          // }
                           dbController.saveUserId(response);
-                          Get.offAll(() => const HomePage());
+                          Get.offAll(
+                            () => const HomeView(),
+                            transition: Transition.circularReveal,
+                          );
                         } else {
                           //-----------User exist----------
                           dbController.saveUserId(uid);
