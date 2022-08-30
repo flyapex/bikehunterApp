@@ -10,7 +10,11 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LocationAppbarBottomSheet extends StatelessWidget {
-  const LocationAppbarBottomSheet({Key? key}) : super(key: key);
+  LocationAppbarBottomSheet({Key? key}) : super(key: key);
+  late GoogleMapController googleMapController;
+  static const CameraPosition initialCameraPosition =
+      CameraPosition(target: LatLng(23.777176, 90.399452), zoom: 14);
+  Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +94,7 @@ class LocationAppbarBottomSheet extends StatelessWidget {
                 child: Stack(
                   children: [
                     const Center(
-                      child: Text('Under Development'),
+                      child: Text('Under gg'),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15),
@@ -99,7 +103,6 @@ class LocationAppbarBottomSheet extends StatelessWidget {
                         child: FloatingActionButton(
                           backgroundColor: Colors.blue,
                           onPressed: () {
-                            //!--work here
                             //hello world
                             //GG
                           },

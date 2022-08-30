@@ -80,7 +80,7 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
                   ),
                   onTap: () {
                     Get.bottomSheet(
-                      const LocationAppbarBottomSheet(),
+                      LocationAppbarBottomSheet(),
                       elevation: 20.0,
                       enableDrag: true,
                       backgroundColor: Colors.white,
