@@ -1,14 +1,9 @@
-import 'dart:math';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bikehunter/controller/db_controller.dart';
-import 'package:bikehunter/controller/login_controller.dart';
-import 'package:bikehunter/model/login_model.dart';
 import 'package:bikehunter/screen/Signup/login.dart';
 import 'package:bikehunter/screen/home/home.dart';
 import 'package:bikehunter/screen/home_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'widget/socialicons.dart';
 
@@ -18,14 +13,14 @@ class SignUpWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DBController dbController = Get.find();
-    final LoginController loginController = Get.put(LoginController());
-    String passWardGenerator(int len) {
-      var r = Random();
-      const chars =
-          'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-      return List.generate(len, (index) => chars[r.nextInt(chars.length)])
-          .join();
-    }
+    // final LoginController loginController = Get.put(LoginController());
+    // String passWardGenerator(int len) {
+    //   var r = Random();
+    //   const chars =
+    //       'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    //   return List.generate(len, (index) => chars[r.nextInt(chars.length)])
+    //       .join();
+    // }
 
     return Stack(
       children: [
@@ -153,43 +148,43 @@ class SignUpWidget extends StatelessWidget {
                       () => const HomeView(),
                       transition: Transition.circularReveal,
                     );
-                    final LoginResult result = await FacebookAuth.instance
-                        .login(loginBehavior: LoginBehavior.webOnly);
-                    if (result.status == LoginStatus.success) {
-                      FacebookAuth.i.getUserData().then(
-                        (user) async {
-                          var uid =
-                              await loginController.usercheckFB(user["id"]);
-                          if (uid == null) {
-                            //-----------User Not exist----------
-                            var response = await loginController.creatNewUser(
-                              NewUser(
-                                fb: user["id"],
-                                tcaller: '',
-                                email: user["email"],
-                                name: user["name"],
-                                image: user["picture"]["data"]["url"],
-                                phone: '',
-                                pass: passWardGenerator(6),
-                                wappnumber: '',
-                              ),
-                            );
-                            dbController.saveUserId(response);
-                            Get.offAll(
-                              () => const HomeView(),
-                              transition: Transition.circularReveal,
-                            );
-                          } else {
-                            //-----------User exist----------
-                            dbController.saveUserId(uid);
-                            Get.offAll(
-                              () => const HomeView(),
-                              transition: Transition.circularReveal,
-                            );
-                          }
-                        },
-                      );
-                    }
+                    // final LoginResult result = await FacebookAuth.instance
+                    //     .login(loginBehavior: LoginBehavior.webOnly);
+                    // if (result.status == LoginStatus.success) {
+                    //   FacebookAuth.i.getUserData().then(
+                    //     (user) async {
+                    //       var uid =
+                    //           await loginController.usercheckFB(user["id"]);
+                    //       if (uid == null) {
+                    //         //-----------User Not exist----------
+                    //         var response = await loginController.creatNewUser(
+                    //           NewUser(
+                    //             fb: user["id"],
+                    //             tcaller: '',
+                    //             email: user["email"],
+                    //             name: user["name"],
+                    //             image: user["picture"]["data"]["url"],
+                    //             phone: '',
+                    //             pass: passWardGenerator(6),
+                    //             wappnumber: '',
+                    //           ),
+                    //         );
+                    //         dbController.saveUserId(response);
+                    //         Get.offAll(
+                    //           () => const HomeView(),
+                    //           transition: Transition.circularReveal,
+                    //         );
+                    //       } else {
+                    //         //-----------User exist----------
+                    //         dbController.saveUserId(uid);
+                    //         Get.offAll(
+                    //           () => const HomeView(),
+                    //           transition: Transition.circularReveal,
+                    //         );
+                    //       }
+                    //     },
+                    //   );
+                    // }
                   },
                   child: const SocialIcons(
                     icon: 'assets/icons/sl/fb.svg',

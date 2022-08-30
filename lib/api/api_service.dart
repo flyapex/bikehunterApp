@@ -2,11 +2,10 @@ import 'dart:convert';
 import 'package:bikehunter/model/ads_model.dart';
 import 'package:bikehunter/model/location_model.dart';
 import 'package:bikehunter/model/login_model.dart';
-import 'package:dio/dio.dart';
+import 'package:bikehunter/model/post_model.dart';
 import 'package:http/http.dart' as http;
 
 var baseUrl = 'http://bikehunter.xyz/api';
-var dio = Dio();
 
 var headers = {
   "content-type": 'application/json;charset=UTF-8',
@@ -16,10 +15,10 @@ var headers = {
 class ApiService {
   // ignore: non_constant_identifier_names
   static Future ApiCheck() async {
-    var response = await dio.get(baseUrl);
+    var response = await http.get(Uri.parse(baseUrl));
 
     if (response.statusCode == 200) {
-      print(response.data);
+      print(response.body);
     } else {
       print("object");
     }
@@ -41,16 +40,6 @@ class ApiService {
   }
 
   static Future createNewUser(data) async {
-    // try {
-    //   var response = await dio.post(
-    //     '$baseUrl/signup',
-    //     data: data,
-    //     options: Options(headers: headers),
-    //   );
-    //   return response.data['insertId'];
-    // } catch (e) {
-    //   print(e);
-    // }
     var response = await http.post(
       Uri.parse('$baseUrl/signup'),
       body: newUserToJson(data),
@@ -75,17 +64,6 @@ class ApiService {
     } else {
       return null;
     }
-    // var response = await dio.post(
-    //   '$baseUrl/getlocation',
-    //   data: {"uid": uid},
-    //   options: Options(headers: headers),
-    // );
-
-    // if (response.statusCode == 200) {
-    //   return LocationModel.fromJson(response.data[0]);
-    // } else {
-    //   return null;
-    // }
   }
 
   // update current location
@@ -101,16 +79,6 @@ class ApiService {
     } else {
       return response.body;
     }
-    // var response = await dio.post(
-    //   '$baseUrl/setlocation',
-    //   data: data,
-    //   options: Options(headers: headers),
-    // );
-    // if (response.statusCode == 200) {
-    //   return response.data;
-    // } else {
-    //   return null;
-    // }
   }
 
   // loding banner ads api
@@ -121,31 +89,68 @@ class ApiService {
     } else {
       return null;
     }
-    // var response = await dio.get("$baseUrl/bannerads");
-    // if (response.statusCode == 200) {
-    //   // print(response.data);
-    //   // return bannerAdsListFromJson(response.data);
-    //   // return BannerAdsList.fromJson(response.data);
-    // } else {
-    //   return null;
-    // }
   }
 
   // ------------------loading post
-  // static Future getallPostApi(page) async {
-  //   var response = await http.post(
-  //     Uri.parse('$baseUrl/allpost'),
-  //     body: jsonEncode(
-  //       {
-  //         "page": "$page",
-  //       },
-  //     ),
-  //     headers: headers,
-  //   );
-  //   if (response.statusCode == 200) {
-  //     return allPostRecFromJson(response.body);
-  //   } else {
-  //     return null;
-  //   }
-  // }
+  static Future getallPostApi(page) async {
+    var response = await http.post(
+      Uri.parse('$baseUrl/allpost'),
+      body: pageModelToJson(page),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return postListRecModelFromJson(response.body);
+    } else {
+      return null;
+    }
+  }
+
+  //single post api
+  static Future getSinglePostApi(pid) async {
+    var response = await http.post(
+      Uri.parse('$baseUrl/postid'),
+      body: jsonEncode(
+        {
+          "pid": "$pid",
+        },
+      ),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return singlePostModelFromJson(response.body);
+      // return singlePostModelFromJson(response.body)[0];
+    } else {
+      return null;
+    }
+  }
+
+  // get user details for post
+  static Future getUserData(id) async {
+    var response = await http.post(
+      Uri.parse('$baseUrl/uid'),
+      body: jsonEncode({"uid": "$id"}),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200 &&
+        userdetailsFromJson(response.body).isEmpty) {
+      return null;
+    } else {
+      return userdetailsFromJson(response.body)[0];
+    }
+  }
+
+  // sending post data
+  static Future postNow(PostmodelSend data) async {
+    var response = await http.post(
+      Uri.parse('$baseUrl/post'),
+      body: postmodelSendToJson(data),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return null;
+    }
+  }
 }
