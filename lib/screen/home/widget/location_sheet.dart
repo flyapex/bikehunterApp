@@ -32,28 +32,28 @@ class LocationAppbarBottomSheet extends StatelessWidget {
         ),
         child: Scaffold(
           backgroundColor: Colors.white,
-          floatingActionButton: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: FloatingActionButton(
-              backgroundColor: Colors.black,
-              onPressed: () async {
-                Navigator.pop(context);
-                navbarController.selectedIndex = 1;
-                //updating locaiton to server
-                locationController.setLocation(
-                  LocationUpdateModel(
-                    uid: dbController.isLogin(),
-                    division: locationController.alldivitiontxt.value,
-                    city: locationController.subdivitiontxt.value,
-                  ),
-                );
-              },
-              child: const Icon(
-                Feather.search,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          // floatingActionButton: Padding(
+          //   padding: const EdgeInsets.only(bottom: 20),
+          //   child: FloatingActionButton(
+          //     backgroundColor: Colors.black,
+          //     onPressed: () async {
+          //       Navigator.pop(context);
+          //       navbarController.selectedIndex = 1;
+          //       //updating locaiton to server
+          //       locationController.setLocation(
+          //         LocationUpdateModel(
+          //           uid: dbController.isLogin(),
+          //           division: locationController.alldivitiontxt.value,
+          //           city: locationController.subdivitiontxt.value,
+          //         ),
+          //       );
+          //     },
+          //     // child: const Icon(
+          //     //   Feather.search,
+          //     //   color: Colors.white,
+          //     // ),
+          //   ),
+          // ),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -96,8 +96,11 @@ class LocationAppbarBottomSheet extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: FloatingActionButton(
-                          backgroundColor: Colors.black,
-                          onPressed: () {},
+                          backgroundColor: Colors.blue,
+                          onPressed: () {
+                            //!--work here
+                            //hello world
+                          },
                           child: const Icon(
                             Feather.map_pin,
                             color: Colors.white,
