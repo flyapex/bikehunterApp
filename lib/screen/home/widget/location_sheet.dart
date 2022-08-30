@@ -14,6 +14,7 @@ class LocationAppbarBottomSheet extends StatelessWidget {
   late GoogleMapController googleMapController;
   static const CameraPosition initialCameraPosition =
       CameraPosition(target: LatLng(23.777176, 90.399452), zoom: 14);
+
   Set<Marker> markers = {};
 
   @override
@@ -93,8 +94,15 @@ class LocationAppbarBottomSheet extends StatelessWidget {
                 ),
                 child: Stack(
                   children: [
-                    const Center(
-                      child: Text('Under gg'),
+                    Center(
+                      child: GoogleMap(
+                        initialCameraPosition: initialCameraPosition,
+                        zoomControlsEnabled: false,
+                        mapType: MapType.normal,
+                        onMapCreated: (GoogleMapController controller) {
+                          googleMapController = controller;
+                        },
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15),
