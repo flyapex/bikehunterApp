@@ -6,6 +6,7 @@ import 'package:bikehunter/model/catagory_model.dart';
 import 'package:bikehunter/model/location_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -14,8 +15,6 @@ class LocationAppbarBottomSheet extends StatelessWidget {
   late GoogleMapController googleMapController;
   static const CameraPosition initialCameraPosition =
       CameraPosition(target: LatLng(23.777176, 90.399452), zoom: 14);
-
-  Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +109,20 @@ class LocationAppbarBottomSheet extends StatelessWidget {
                         alignment: Alignment.bottomRight,
                         child: FloatingActionButton(
                           backgroundColor: Colors.blue,
-                          onPressed: () {
+                          onPressed: () async {
+                            Position position = await _determinePosition();
+
+                            googleMapController.animateCamera(
+                                CameraUpdate.newCameraPosition(CameraPosition(
+                                    target: LatLng(
+                                        position.latitude, position.longitude),
+                                    zoom: 14)));
+                            markers.clear();
+                            markers.add(Marker(
+                                markerId: const MarkerId('currentLocation'),
+                                position: LatLng(
+                                    position.latitude, position.longitude)));
+                            // setState(() {});
                             //hello world
                             //GG
                           },
@@ -127,6 +139,31 @@ class LocationAppbarBottomSheet extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  Set<Marker> markers = {};
+
+  Future<Position> _determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error("Loocation permission denied");
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error("Loocation permission are permanently denied");
+    }
+    Position position = await Geolocator.getCurrentPosition();
+
+    return position;
   }
 }
 
