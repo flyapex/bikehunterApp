@@ -9,6 +9,7 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geocoding/geocoding.dart';
 
 class LocationAppbarBottomSheet extends StatefulWidget {
   LocationAppbarBottomSheet({Key? key}) : super(key: key);
@@ -133,6 +134,10 @@ class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
                                 position: LatLng(
                                     position.latitude, position.longitude)));
                             setState(() {});
+                            List<Placemark> placemarks =
+                                await placemarkFromCoordinates(
+                                    position.latitude, position.longitude);
+                            print(placemarks);
                             //hello world
                             //GG
                           },
