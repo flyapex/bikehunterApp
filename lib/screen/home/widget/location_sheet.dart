@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:bikehunter/constants/colors.dart';
 import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/location_controller.dart';
@@ -24,6 +22,7 @@ class LocationAppbarBottomSheet extends StatefulWidget {
 
 class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
   late GoogleMapController googleMapController;
+  Set<Marker> markers = {};
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +105,7 @@ class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
                       child: GoogleMap(
                         initialCameraPosition:
                             LocationAppbarBottomSheet.initialCameraPosition,
+                        markers: markers,
                         zoomControlsEnabled: false,
                         mapType: MapType.normal,
                         onMapCreated: (GoogleMapController controller) {
@@ -127,7 +127,7 @@ class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
                                     target: LatLng(
                                         position.latitude, position.longitude),
                                     zoom: 18)));
-                            markers.clear();
+                            // markers.clear();
                             markers.add(Marker(
                                 markerId: const MarkerId('currentLocation'),
                                 position: LatLng(
@@ -150,8 +150,6 @@ class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
           ),
         ));
   }
-
-  Set<Marker> markers = {};
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
