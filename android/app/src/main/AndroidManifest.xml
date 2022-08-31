@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bikehunter">
-    <uses-permission android: name = "android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android: name = "android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Bike Hunter"
@@ -51,5 +51,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDBGH4ihI5SQ_e1NcXQvSAFZtcdzjKOmq8"/>
     </application>
 </manifest>

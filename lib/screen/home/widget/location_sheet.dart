@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:bikehunter/constants/colors.dart';
 import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/location_controller.dart';
@@ -10,11 +12,18 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class LocationAppbarBottomSheet extends StatelessWidget {
+class LocationAppbarBottomSheet extends StatefulWidget {
   LocationAppbarBottomSheet({Key? key}) : super(key: key);
-  late GoogleMapController googleMapController;
   static const CameraPosition initialCameraPosition =
       CameraPosition(target: LatLng(23.777176, 90.399452), zoom: 14);
+
+  @override
+  State<LocationAppbarBottomSheet> createState() =>
+      _LocationAppbarBottomSheetState();
+}
+
+class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
+  late GoogleMapController googleMapController;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +104,8 @@ class LocationAppbarBottomSheet extends StatelessWidget {
                   children: [
                     Center(
                       child: GoogleMap(
-                        initialCameraPosition: initialCameraPosition,
+                        initialCameraPosition:
+                            LocationAppbarBottomSheet.initialCameraPosition,
                         zoomControlsEnabled: false,
                         mapType: MapType.normal,
                         onMapCreated: (GoogleMapController controller) {
@@ -116,13 +126,13 @@ class LocationAppbarBottomSheet extends StatelessWidget {
                                 CameraUpdate.newCameraPosition(CameraPosition(
                                     target: LatLng(
                                         position.latitude, position.longitude),
-                                    zoom: 14)));
+                                    zoom: 18)));
                             markers.clear();
                             markers.add(Marker(
                                 markerId: const MarkerId('currentLocation'),
                                 position: LatLng(
                                     position.latitude, position.longitude)));
-                            // setState(() {});
+                            setState(() {});
                             //hello world
                             //GG
                           },
