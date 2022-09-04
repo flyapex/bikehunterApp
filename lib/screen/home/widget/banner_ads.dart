@@ -41,12 +41,13 @@ class _ImageSlideState extends State<ImageSlide> {
       } else {
         _currentPage = 0;
       }
-
-      pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeIn,
-      );
+      if (pageController.hasClients) {
+        pageController.animateToPage(
+          _currentPage,
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeIn,
+        );
+      }
     });
   }
 

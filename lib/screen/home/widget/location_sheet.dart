@@ -3,7 +3,6 @@ import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/location_controller.dart';
 import 'package:bikehunter/controller/navigation_controller.dart';
 import 'package:bikehunter/model/catagory_model.dart';
-import 'package:bikehunter/model/location_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:geolocator/geolocator.dart';
@@ -12,7 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 
 class LocationAppbarBottomSheet extends StatefulWidget {
-  LocationAppbarBottomSheet({Key? key}) : super(key: key);
+  const LocationAppbarBottomSheet({Key? key}) : super(key: key);
   static const CameraPosition initialCameraPosition =
       CameraPosition(target: LatLng(23.777176, 90.399452), zoom: 14);
 
@@ -124,20 +123,28 @@ class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
                             Position position = await _determinePosition();
 
                             googleMapController.animateCamera(
-                                CameraUpdate.newCameraPosition(CameraPosition(
-                                    target: LatLng(
-                                        position.latitude, position.longitude),
-                                    zoom: 18)));
+                              CameraUpdate.newCameraPosition(
+                                CameraPosition(
+                                  target: LatLng(
+                                      position.latitude, position.longitude),
+                                  zoom: 17,
+                                ),
+                              ),
+                            );
                             // markers.clear();
-                            markers.add(Marker(
+                            markers.add(
+                              Marker(
                                 markerId: const MarkerId('currentLocation'),
                                 position: LatLng(
-                                    position.latitude, position.longitude)));
+                                    position.latitude, position.longitude),
+                              ),
+                            );
                             setState(() {});
                             List<Placemark> placemarks =
                                 await placemarkFromCoordinates(
                                     position.latitude, position.longitude);
-                            print(placemarks);
+                            print(placemarks[0].administrativeArea);
+                            print(placemarks[0].subAdministrativeArea);
                             //hello world
                             //GG
                           },

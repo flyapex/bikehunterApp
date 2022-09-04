@@ -86,17 +86,17 @@ class SelectImageState extends State<SelectImage> {
                   SizedBox(
                     height: 44,
                     // ignore: deprecated_member_use
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () async {
                         getImage();
                       },
-                      elevation: 0,
-                      padding: EdgeInsets.zero,
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        side: BorderSide(color: Colors.black.withOpacity(0.4)),
-                      ),
+                      // elevation: 0,
+                      // padding: EdgeInsets.zero,
+                      // color: Colors.white,
+                      // shape: RoundedRectangleBorder(
+                      //   borderRadius: BorderRadius.circular(4),
+                      //   side: BorderSide(color: Colors.black.withOpacity(0.4)),
+                      // ),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20, right: 20),
                         child: Row(

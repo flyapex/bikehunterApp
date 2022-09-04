@@ -57,11 +57,17 @@ class _Page3State extends State<Page3> {
               snackStyle: SnackStyle.FLOATING,
               duration: const Duration(seconds: 2),
             );
-            Navigator.pop(context);
+            Get.back();
           }
         },
-        icon: const Icon(Feather.check),
-        label: const Text(" Post Now  "),
+        icon: const Icon(
+          Feather.check,
+          color: Colors.white,
+        ),
+        label: const Text(
+          " Post Now  ",
+          style: TextStyle(color: Colors.white),
+        ),
         backgroundColor: Colors.black,
       ),
       body: Obx(

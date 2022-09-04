@@ -674,12 +674,16 @@ class PostPageDesign extends StatelessWidget {
 
                                       // var image = base64.decode(data.image1);
                                       // final Uint8List bytes = stuff.buffer.asUint8List();
-                                      // var wappNumber = data.wanumber;
-                                      // var message =
-                                      //     'Hi ${data.name}, I found this ads on OlxBike, is it still available?';
-                                      // var whatsAppUrl =
-                                      //     'https://wa.me/+$wappNumber?text=${Uri.parse(message)}';
-                                      // launch(whatsAppUrl);
+                                      var wappNumber = data.wappnumber;
+                                      var message = '''
+Hi ${data.name.toUpperCase()}, 
+
+I found this ads "${data.model}" on Bikehunter,
+is it still available?''';
+                                      var whatsAppUrl =
+                                          'https://wa.me/+$wappNumber?text=${Uri.parse(message)}';
+                                      // ignore: deprecated_member_use
+                                      launch(whatsAppUrl);
 
                                       //*----------------------
                                       // FlutterShareMe()
