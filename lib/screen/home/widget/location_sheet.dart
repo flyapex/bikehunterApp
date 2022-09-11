@@ -3,6 +3,8 @@ import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/location_controller.dart';
 import 'package:bikehunter/controller/navigation_controller.dart';
 import 'package:bikehunter/model/catagory_model.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:geolocator/geolocator.dart';
@@ -107,6 +109,11 @@ class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
                             LocationAppbarBottomSheet.initialCameraPosition,
                         markers: markers,
                         zoomControlsEnabled: false,
+                        zoomGesturesEnabled: true,
+                        scrollGesturesEnabled: true,
+                        rotateGesturesEnabled: false,
+                        tiltGesturesEnabled: false,
+                        myLocationEnabled: false,
                         mapType: MapType.normal,
                         onMapCreated: (GoogleMapController controller) {
                           googleMapController = controller;
@@ -137,6 +144,7 @@ class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
                                 markerId: const MarkerId('currentLocation'),
                                 position: LatLng(
                                     position.latitude, position.longitude),
+                                draggable: false,
                               ),
                             );
                             setState(() {});
