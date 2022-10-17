@@ -14,7 +14,8 @@ class DBController extends GetxController {
   // ignore: non_constant_identifier_names
   // final _uid_key = 'uid';
 
-  int isLogin() => _box.read(_login_key) ?? 0;
+  // int isLogin() => _box.read(_login_key) ?? 0; mian login
+  int isLogin() => 41;
   saveUserId(int value) => _box.write(_login_key, value);
 
   String getdis() => _box.read('dis') ?? 'Dhaka';

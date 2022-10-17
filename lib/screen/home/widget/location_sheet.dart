@@ -28,7 +28,7 @@ class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final NavbarController navbarController = Get.find();
+    final NavbarController navbarController = Get.put(NavbarController());
     final LocationController locationController = Get.find();
     final DBController dbController = Get.find();
 

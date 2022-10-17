@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'controller/db_controller.dart';
-import 'screen/Signup/sl_home.dart';
-import 'theme/theme.dart';
-import 'controller/themes_controller.dart';
 
 void main() async {
   await GetStorage.init();
@@ -18,21 +14,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeController = Get.put(ThemeController());
-    final dbController = Get.put(DBController());
-
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ));
-    return GetMaterialApp(
+    return const GetMaterialApp(
       title: 'Bike Hunter',
-      themeMode: themeController.theme,
-      theme: Themes.lightTheme,
-      darkTheme: Themes.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: dbController.isLogin() == 0 ? const SLHome() : const HomeView(),
-      // home: const HomeView(),
+      home: HomeView(),
     );
   }
 }

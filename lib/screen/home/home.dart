@@ -2,7 +2,6 @@ import 'package:bikehunter/constants/colors.dart';
 import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/post_controller.dart';
 import 'package:bikehunter/screen/home/widget/app_bar.dart';
-import 'package:bikehunter/screen/signup/sl_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
@@ -49,7 +48,7 @@ class _HomePageState extends State<HomePage>
         backgroundColor: Colors.black,
         onPressed: () {
           dbController.saveUserId(0);
-          Get.offAll(() => const SLHome());
+          // Get.offAll(() => const SLHome());
         },
         child: const Icon(
           Feather.log_out,
