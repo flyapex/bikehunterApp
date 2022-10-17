@@ -6,7 +6,7 @@ import 'package:bikehunter/screen/home/widget/banner_ads.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'home/widget/post_list.dart';
+import 'widget/post_list.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -17,6 +17,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView>
     with AutomaticKeepAliveClientMixin {
+  @override
   bool get wantKeepAlive => true;
   bool _showFab = true;
   final PostController postController = Get.put(PostController());
