@@ -3,9 +3,11 @@ import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/location_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 
+import 'appbar_textfield/user_data.dart';
 import 'location_sheet.dart';
 
 class CustomeAppBar extends StatefulWidget {
@@ -126,7 +128,7 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
                     height: 50,
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
                       children: [
@@ -141,23 +143,36 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
                         ),
                         Expanded(
                           child: SizedBox(
-                            child: TextField(
-                              focusNode: FocusNode(),
-                              textAlign: TextAlign.justify,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                color: Colors.black.withOpacity(0.40),
-                                fontSize: 14,
-                                letterSpacing: 1.2,
-                              ),
-                              decoration: const InputDecoration(
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                ),
-                                isDense: true,
-                                hintText: 'Motorcycle in Dhaka',
-                              ),
+                            child: TypeAheadFormField<User?>(
+                              suggestionsCallback: UserApi.getUserSuggestions,
+                              itemBuilder: (context, User? suggestion) {
+                                final user = suggestion!;
+                                return ListTile(
+                                  title: Text(user.name),
+                                );
+                              },
+                              onSuggestionSelected: (User? suggestion) {},
+                              suggestionsBoxDecoration:
+                                  const SuggestionsBoxDecoration(
+                                      elevation: 10.0),
                             ),
+                            // child: TextField(
+                            //   focusNode: FocusNode(),
+                            //   textAlign: TextAlign.justify,
+                            //   cursorColor: Colors.black,
+                            //   style: TextStyle(
+                            //     color: Colors.black.withOpacity(0.40),
+                            //     fontSize: 14,
+                            //     letterSpacing: 1.2,
+                            //   ),
+                            //   decoration: const InputDecoration(
+                            //     border: OutlineInputBorder(
+                            //       borderSide: BorderSide.none,
+                            //     ),
+                            //     isDense: true,
+                            //     hintText: 'Motorcycle in Dhaka',
+                            //   ),
+                            // ),
                           ),
                         ),
                       ],
