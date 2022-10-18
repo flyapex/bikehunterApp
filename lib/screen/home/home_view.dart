@@ -34,6 +34,7 @@ class _HomeViewState extends State<HomeView>
           // print("You're at the top.");
         } else {
           // print("You're at the bottom.");
+          _showFab = false;
           postController.getAllPost();
         }
       }
