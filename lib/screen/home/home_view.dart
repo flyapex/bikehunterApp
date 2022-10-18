@@ -3,6 +3,7 @@ import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/post_controller.dart';
 import 'package:bikehunter/screen/home/widget/app_bar.dart';
 import 'package:bikehunter/screen/home/widget/banner_ads.dart';
+import 'package:bikehunter/screen/post_now/new_post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -63,7 +64,23 @@ class _HomeViewState extends State<HomeView>
                   Text('Save'),
                 ],
               ),
-              onPressed: () {},
+              onPressed: () {
+                Get.bottomSheet(
+                  const NewPostPage(),
+                  elevation: 20.0,
+                  enableDrag: true,
+                  backgroundColor: Colors.white,
+                  isScrollControlled: true,
+                  ignoreSafeArea: true,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20.0),
+                      topRight: Radius.circular(20.0),
+                    ),
+                  ),
+                  enterBottomSheetDuration: const Duration(milliseconds: 170),
+                );
+              },
             ),
           ),
         ),
