@@ -45,231 +45,239 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     const duration = Duration(milliseconds: 270);
-    return Scaffold(
-      backgroundColor: Colors.white,
-      extendBodyBehindAppBar: true,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: AnimatedSlide(
-        duration: duration,
-        offset: _showFab ? Offset.zero : const Offset(0, 2),
-        child: AnimatedOpacity(
+    return GestureDetector(
+      onTap: () {
+        FocusScopeNode currentFocus = FocusScope.of(context);
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        extendBodyBehindAppBar: true,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: AnimatedSlide(
           duration: duration,
-          opacity: _showFab ? 1 : 0,
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: FloatingActionButton.extended(
-              tooltip: 'Post NOW',
-              label: Row(
-                children: const [
-                  Icon(Icons.add),
-                  Text('Save'),
-                ],
+          offset: _showFab ? Offset.zero : const Offset(0, 2),
+          child: AnimatedOpacity(
+            duration: duration,
+            opacity: _showFab ? 1 : 0,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: FloatingActionButton.extended(
+                tooltip: 'Post NOW',
+                label: Row(
+                  children: const [
+                    Icon(Icons.add),
+                    Text('Save'),
+                  ],
+                ),
+                onPressed: () {
+                  Get.bottomSheet(
+                    const NewPostPage(),
+                    elevation: 20.0,
+                    enableDrag: true,
+                    backgroundColor: Colors.white,
+                    isScrollControlled: true,
+                    ignoreSafeArea: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      ),
+                    ),
+                    enterBottomSheetDuration: const Duration(milliseconds: 170),
+                  );
+                },
               ),
-              onPressed: () {
-                Get.bottomSheet(
-                  const NewPostPage(),
-                  elevation: 20.0,
-                  enableDrag: true,
-                  backgroundColor: Colors.white,
-                  isScrollControlled: true,
-                  ignoreSafeArea: true,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0),
+            ),
+          ),
+        ),
+        body: NotificationListener(
+          onNotification: (scrollNotification) {
+            // if (scrollNotification is ScrollUpdateNotification) {
+            //   setState(() {
+            //     _showFab = false;
+            //   });
+            // } else {
+            //   setState(() {
+            //     _showFab = true;
+            //   });
+            // }
+            return true;
+          },
+          // onNotification: (notification) {
+          // setState(() {
+          //   if (notification is ScrollStartNotification) {
+          //     print("Scroll Start");
+          //     _showFab = false;
+          //   } else if (notification is ScrollUpdateNotification) {
+          //     print("Scroll Update");
+          //     _showFab = false;
+          //   } else if (notification is ScrollEndNotification) {
+          //     print("Scroll End");
+          //     _showFab = true;
+          //   }
+          //   // });
+          //   if (postController.scrollController.position.pixels ==
+          //       postController.scrollController.position.maxScrollExtent) {
+          //     print("Scroll Start");
+          //     _showFab = false;
+          //   }
+          //   return true;
+          // },
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: CustomScrollView(
+                controller: postController.scrollController,
+                physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
+                slivers: [
+                  const CustomeAppBar(),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      height: 20,
                     ),
                   ),
-                  enterBottomSheetDuration: const Duration(milliseconds: 170),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
-      body: NotificationListener(
-        onNotification: (scrollNotification) {
-          // if (scrollNotification is ScrollUpdateNotification) {
-          //   setState(() {
-          //     _showFab = false;
-          //   });
-          // } else {
-          //   setState(() {
-          //     _showFab = true;
-          //   });
-          // }
-          return true;
-        },
-        // onNotification: (notification) {
-        // setState(() {
-        //   if (notification is ScrollStartNotification) {
-        //     print("Scroll Start");
-        //     _showFab = false;
-        //   } else if (notification is ScrollUpdateNotification) {
-        //     print("Scroll Update");
-        //     _showFab = false;
-        //   } else if (notification is ScrollEndNotification) {
-        //     print("Scroll End");
-        //     _showFab = true;
-        //   }
-        //   // });
-        //   if (postController.scrollController.position.pixels ==
-        //       postController.scrollController.position.maxScrollExtent) {
-        //     print("Scroll Start");
-        //     _showFab = false;
-        //   }
-        //   return true;
-        // },
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20),
-            child: CustomScrollView(
-              controller: postController.scrollController,
-              physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics(),
-              ),
-              slivers: [
-                const CustomeAppBar(),
-                const SliverToBoxAdapter(
-                  child: SizedBox(
-                    height: 20,
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 15),
-                        child: Text(
-                          "FEATURED",
-                          style: TextStyle(
-                            fontSize: 10,
-                            color: kTEXT1,
+                  SliverToBoxAdapter(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 15),
+                          child: Text(
+                            "FEATURED",
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: kTEXT1,
+                            ),
                           ),
                         ),
-                      ),
-                      ImageSlide(
-                        topPadding: 10.0,
-                        hight: 180,
-                      ),
-                    ],
-                  ),
-                ),
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: 20),
-                ),
-                // SliverToBoxAdapter(
-                //   child: GridView.builder(
-                //     // physics: const AlwaysScrollableScrollPhysics(
-                //     //     parent: BouncingScrollPhysics()),
-                //     // physics: FixedExtentScrollPhysics(),
-                //     // controller: postController.scrollController,
-                //     physics: const NeverScrollableScrollPhysics(),
-                //     shrinkWrap: true,
-                //     gridDelegate:
-                //         const SliverGridDelegateWithFixedCrossAxisCount(
-                //       crossAxisCount: 2,
-                //       crossAxisSpacing: 20,
-                //       mainAxisSpacing: 20,
-                //       childAspectRatio: 0.65,
-                //     ),
-                //     // itemCount: snapshot.data.length + 1,
-                //     itemCount: 200,
-                //     itemBuilder: (BuildContext context, int index) {
-                //       return Container(
-                //         height: 100,
-                //         width: 100,
-                //         color: Colors.red,
-                //         child: Center(child: Text("$index")),
-                //       );
-                //     },
-                //   ),
-                // ),
-                StreamBuilder(
-                  stream: postController.allpostList.stream,
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    if (snapshot.data == null) {
-                      return const SliverToBoxAdapter(
-                        child: Center(
-                          child: CircularProgressIndicator(),
+                        ImageSlide(
+                          topPadding: 10.0,
+                          hight: 180,
                         ),
-                      );
-                    } else {
-                      return SliverToBoxAdapter(
-                        child: GridView.builder(
-                          physics: const ScrollPhysics(),
-                          shrinkWrap: true,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20,
-                            childAspectRatio: 0.65,
+                      ],
+                    ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(height: 20),
+                  ),
+                  // SliverToBoxAdapter(
+                  //   child: GridView.builder(
+                  //     // physics: const AlwaysScrollableScrollPhysics(
+                  //     //     parent: BouncingScrollPhysics()),
+                  //     // physics: FixedExtentScrollPhysics(),
+                  //     // controller: postController.scrollController,
+                  //     physics: const NeverScrollableScrollPhysics(),
+                  //     shrinkWrap: true,
+                  //     gridDelegate:
+                  //         const SliverGridDelegateWithFixedCrossAxisCount(
+                  //       crossAxisCount: 2,
+                  //       crossAxisSpacing: 20,
+                  //       mainAxisSpacing: 20,
+                  //       childAspectRatio: 0.65,
+                  //     ),
+                  //     // itemCount: snapshot.data.length + 1,
+                  //     itemCount: 200,
+                  //     itemBuilder: (BuildContext context, int index) {
+                  //       return Container(
+                  //         height: 100,
+                  //         width: 100,
+                  //         color: Colors.red,
+                  //         child: Center(child: Text("$index")),
+                  //       );
+                  //     },
+                  //   ),
+                  // ),
+                  StreamBuilder(
+                    stream: postController.allpostList.stream,
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      if (snapshot.data == null) {
+                        return const SliverToBoxAdapter(
+                          child: Center(
+                            child: CircularProgressIndicator(),
                           ),
-                          itemCount: snapshot.data.length + 1,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (index < snapshot.data.length) {
-                              // return Container(
-                              //   height: 100,
-                              //   width: 100,
-                              //   color: Colors.red,
-                              //   child: Center(child: Text("$index")),
-                              // );
-                              return Post(
-                                postData: snapshot.data[index],
-                                snapshot: snapshot,
-                                currentINDEX: index,
-                              );
-                            } else {
-                              if (postController.allpostLoding.value) {
-                                return const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
+                        );
+                      } else {
+                        return SliverToBoxAdapter(
+                          child: GridView.builder(
+                            physics: const ScrollPhysics(),
+                            shrinkWrap: true,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 20,
+                              mainAxisSpacing: 20,
+                              childAspectRatio: 0.65,
+                            ),
+                            itemCount: snapshot.data.length + 1,
+                            itemBuilder: (BuildContext context, int index) {
+                              if (index < snapshot.data.length) {
+                                // return Container(
+                                //   height: 100,
+                                //   width: 100,
+                                //   color: Colors.red,
+                                //   child: Center(child: Text("$index")),
+                                // );
+                                return Post(
+                                  postData: snapshot.data[index],
+                                  snapshot: snapshot,
+                                  currentINDEX: index,
                                 );
                               } else {
-                                return const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Center(
-                                    child: Text('nothing more to load!'),
-                                  ),
-                                );
+                                if (postController.allpostLoding.value) {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                } else {
+                                  return const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text('nothing more to load!'),
+                                    ),
+                                  );
+                                }
                               }
-                            }
-                          },
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ],
+                            },
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
+        // body: NotificationListener<ScrollNotification>(
+        //   onNotification: (notification) {
+        //     setState(() {
+        //       if (notification is ScrollStartNotification) {
+        //         print("Scroll Start");
+        //         _showFab = false;
+        //       } else if (notification is ScrollUpdateNotification) {
+        //         print("Scroll Update");
+        //         _showFab = false;
+        //       } else if (notification is ScrollEndNotification) {
+        //         print("Scroll End");
+        //         _showFab = true;
+        //       }
+        //     });
+        //     return true;
+        //   },
+        //   // child: ListView.builder(
+        //   //   itemCount: 100,
+        //   //   itemBuilder: (_, i) => ListTile(title: Text('$i')),
+        //   // ),
+        //   child:
+        // ),
       ),
-      // body: NotificationListener<ScrollNotification>(
-      //   onNotification: (notification) {
-      //     setState(() {
-      //       if (notification is ScrollStartNotification) {
-      //         print("Scroll Start");
-      //         _showFab = false;
-      //       } else if (notification is ScrollUpdateNotification) {
-      //         print("Scroll Update");
-      //         _showFab = false;
-      //       } else if (notification is ScrollEndNotification) {
-      //         print("Scroll End");
-      //         _showFab = true;
-      //       }
-      //     });
-      //     return true;
-      //   },
-      //   // child: ListView.builder(
-      //   //   itemCount: 100,
-      //   //   itemBuilder: (_, i) => ListTile(title: Text('$i')),
-      //   // ),
-      //   child:
-      // ),
     );
   }
 }
