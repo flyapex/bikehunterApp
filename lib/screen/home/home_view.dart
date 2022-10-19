@@ -44,6 +44,7 @@ class _HomeViewState extends State<HomeView>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     const duration = Duration(milliseconds: 270);
     return GestureDetector(
       onTap: () {

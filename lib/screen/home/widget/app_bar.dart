@@ -151,7 +151,9 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
                                   title: Text(user.name),
                                 );
                               },
-                              onSuggestionSelected: (User? suggestion) {},
+                              onSuggestionSelected: (User? suggestion) {
+                                print(suggestion!.name);
+                              },
                               suggestionsBoxDecoration:
                                   const SuggestionsBoxDecoration(
                                       elevation: 10.0),
