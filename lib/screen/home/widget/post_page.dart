@@ -615,8 +615,8 @@ class PostPageDesign extends StatelessWidget {
                                     ),
                                     onPressed: () {},
                                     style: ElevatedButton.styleFrom(
-                                      primary: Colors.blueAccent,
-                                      onPrimary: Colors.white,
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: Colors.blueAccent,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(6),
                                       ),
@@ -700,8 +700,8 @@ is it still available?''';
                                       //     text: 'Great picture');
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      primary: Colors.lightGreen,
-                                      onPrimary: Colors.white,
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: Colors.lightGreen,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(6),
                                       ),
@@ -732,8 +732,8 @@ is it still available?''';
                                       await launch("tel:${data.phone}");
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      primary: const Color(0xff6E7FFC),
-                                      onPrimary: Colors.white,
+                                      foregroundColor: Colors.white,
+                                      backgroundColor: const Color(0xff6E7FFC),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(6),
                                       ),

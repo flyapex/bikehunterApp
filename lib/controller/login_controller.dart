@@ -35,31 +35,31 @@ class LoginController extends GetxController {
     }
   }
 
-  // RxInt uid = 0.obs;
-  // RxString name = ''.obs;
-  // RxString email = ''.obs;
-  // RxString image = ''.obs;
-  // RxString pass = ''.obs;
-  // RxString fb = ''.obs;
-  // RxString phone = ''.obs;
-  // RxString wanumber = ''.obs;
-  // // RxString location = ''.obs;
-  // RxString ip = ''.obs;
-  // late DateTime time = ''.obs as DateTime;
+  RxInt uid = 0.obs;
+  RxString name = ''.obs;
+  RxString email = ''.obs;
+  RxString image = ''.obs;
+  RxString pass = ''.obs;
+  RxString fb = ''.obs;
+  RxString phone = ''.obs;
+  RxString wanumber = ''.obs;
+  // RxString location = ''.obs;
+  RxString ip = ''.obs;
+  late DateTime time = ''.obs as DateTime;
 
-  // userChackEmail(email) async {
-  //   try {
-  //     isLoading(true);
-  //     var user = await ApiService.userChacGoogle(email);
-  //     if (user == null) {
-  //       return null;
-  //     } else {
-  //       return user;
-  //     }
-  //   } finally {
-  //     isLoading(false);
-  //   }
-  // }
+  userChackEmail(email) async {
+    try {
+      isLoading(true);
+      var user = await ApiService.userChacGoogle(email);
+      if (user == null) {
+        return null;
+      } else {
+        return user;
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
 
   // userChackByID(id) async {
   //   try {

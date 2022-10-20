@@ -1,10 +1,7 @@
 import 'package:bikehunter/constants/colors.dart';
 import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/location_controller.dart';
-import 'package:bikehunter/controller/navigation_controller.dart';
 import 'package:bikehunter/model/catagory_model.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:geolocator/geolocator.dart';
@@ -28,9 +25,9 @@ class _LocationAppbarBottomSheetState extends State<LocationAppbarBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final NavbarController navbarController = Get.put(NavbarController());
-    final LocationController locationController = Get.find();
-    final DBController dbController = Get.find();
+    // final NavbarController navbarController = Get.put(NavbarController());
+    // final LocationController locationController = Get.find();
+    // final DBController dbController = Get.find();
 
     return AnimatedContainer(
         curve: Curves.easeIn,

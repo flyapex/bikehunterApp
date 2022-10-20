@@ -114,3 +114,5 @@ class NweuserRes {
         "warningStatus": warningStatus,
       };
 }
+
+//*-----------------------------------------------------

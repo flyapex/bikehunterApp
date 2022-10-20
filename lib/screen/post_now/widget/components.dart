@@ -20,6 +20,7 @@ class CompanyBox extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _CompanyBoxState createState() => _CompanyBoxState();
 }
 
@@ -154,6 +155,7 @@ class FullTextInputBoxTemp extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _FullTextInputBoxTempState createState() => _FullTextInputBoxTempState();
 }
 
@@ -272,6 +274,7 @@ class SmallFullTextInputBoxTemp extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SmallFullTextInputBoxTempState createState() =>
       _SmallFullTextInputBoxTempState();
 }
@@ -506,6 +509,7 @@ class ConditionBoxTemp extends StatefulWidget {
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _ConditionBoxTempState createState() => _ConditionBoxTempState();
 }
 

@@ -39,6 +39,20 @@ class ApiService {
     }
   }
 
+  static Future userChacGoogle(email) async {
+    var response = await http.post(
+      Uri.parse('$baseUrl/email'),
+      body: jsonEncode({"email": email}),
+      headers: headers,
+    );
+
+    if (response.statusCode == 200 && uidmodelFromJson(response.body).isEmpty) {
+      return null;
+    } else {
+      return uidmodelFromJson(response.body)[0].uid;
+    }
+  }
+
   static Future createNewUser(data) async {
     var response = await http.post(
       Uri.parse('$baseUrl/signup'),
