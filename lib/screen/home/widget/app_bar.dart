@@ -147,6 +147,7 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
                               suggestionsCallback: UserApi.getUserSuggestions,
                               itemBuilder: (context, User? suggestion) {
                                 final user = suggestion!;
+
                                 return ListTile(
                                   title: Text(user.name),
                                 );
