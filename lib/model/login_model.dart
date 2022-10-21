@@ -24,14 +24,14 @@ class Uidmodel {
 }
 
 // new user model
-NewUser newUserFromJson(String str) => NewUser.fromJson(json.decode(str));
+NewUserSend newUserSendFromJson(String str) =>
+    NewUserSend.fromJson(json.decode(str));
 
-String newUserToJson(NewUser data) => json.encode(data.toJson());
+String newUserSendToJson(NewUserSend data) => json.encode(data.toJson());
 
-class NewUser {
-  NewUser({
+class NewUserSend {
+  NewUserSend({
     required this.fb,
-    required this.tcaller,
     required this.email,
     required this.name,
     required this.image,
@@ -41,7 +41,6 @@ class NewUser {
   });
 
   String fb;
-  String tcaller;
   String email;
   String name;
   String image;
@@ -49,9 +48,8 @@ class NewUser {
   String phone;
   String wappnumber;
 
-  factory NewUser.fromJson(Map<String, dynamic> json) => NewUser(
+  factory NewUserSend.fromJson(Map<String, dynamic> json) => NewUserSend(
         fb: json["fb"],
-        tcaller: json["tcaller"],
         email: json["email"],
         name: json["name"],
         image: json["image"],
@@ -62,7 +60,6 @@ class NewUser {
 
   Map<String, dynamic> toJson() => {
         "fb": fb,
-        "tcaller": tcaller,
         "email": email,
         "name": name,
         "image": image,

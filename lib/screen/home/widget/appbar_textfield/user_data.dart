@@ -21,6 +21,7 @@ class UserApi {
 
       return users.map((json) => User.fromJson(json)).where((user) {
         final nameLower = user.name.toLowerCase();
+        // ignore: unused_local_variable
         final modeLower = user.model.toLowerCase();
         final queryLower = query.toLowerCase();
 

@@ -20,7 +20,7 @@ class LoginController extends GetxController {
 
   //----------------- New User -----------------//
 
-  creatNewUser(NewUser data) async {
+  creatNewUser(NewUserSend data) async {
     try {
       isLoading(true);
       var response = await ApiService.createNewUser(data);

@@ -53,10 +53,10 @@ class ApiService {
     }
   }
 
-  static Future createNewUser(data) async {
+  static Future createNewUser(NewUserSend data) async {
     var response = await http.post(
       Uri.parse('$baseUrl/signup'),
-      body: newUserToJson(data),
+      body: newUserSendToJson(data),
       headers: headers,
     );
     if (response.statusCode == 200) {

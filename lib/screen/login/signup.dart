@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:bikehunter/api/googleAPI.dart';
 import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/login_controller.dart';
 import 'package:bikehunter/screen/home/home_view.dart';
@@ -9,6 +7,8 @@ import 'package:bikehunter/screen/login/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'widget/socialicons.dart';
+import 'package:bikehunter/model/login_model.dart';
+import 'package:bikehunter/api/google_api.dart';
 
 class SignUpWidget extends StatelessWidget {
   const SignUpWidget({Key? key}) : super(key: key);
@@ -159,27 +159,38 @@ class SignUpWidget extends StatelessWidget {
 
                     if (isUser == null) {
                       // //*-----------User Not exist----------
-                      // loginController.name.value = user.displayName!;
-                      // loginController.email.value = user.email;
-                      // loginController.image.value = user.photoUrl ?? "";
-                      // loginController.pass.value = passWardGenerator(6);
-                      // var response = await loginController.creatNewUser();
-                      // Get.snackbar(
-                      //   'Congrats👏🤝',
-                      //   '$response',
-                      //   snackPosition: SnackPosition.BOTTOM,
-                      //   backgroundColor: Colors.white,
-                      //   borderRadius: 10,
-                      //   margin: const EdgeInsets.all(10),
-                      // );
-                      // Get.offAll(const HomeView());
-                      // dbController.loginUpdate(true);
+                      loginController.name.value = user.displayName!;
+                      loginController.email.value = user.email;
+                      loginController.image.value = user.photoUrl ?? "";
+                      loginController.pass.value = passWardGenerator(6);
+                      var response = await loginController.creatNewUser(
+                        NewUserSend(
+                          fb: '',
+                          email: loginController.email.value,
+                          name: loginController.name.value,
+                          image: loginController.image.value,
+                          pass: loginController.pass.value,
+                          phone: '',
+                          wappnumber: '',
+                        ),
+                      );
+                      Get.snackbar(
+                        'Congrats👏🤝',
+                        '$response',
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.white,
+                        borderRadius: 10,
+                        margin: const EdgeInsets.all(10),
+                      );
+                      Get.offAll(
+                        const HomeView(),
+                        transition: Transition.circularReveal,
+                        duration: const Duration(milliseconds: 600),
+                      );
+                      // dbController.saveUserId();
                     } else {
                       //*-----------User exist----------
                       dbController.saveUserId(isUser);
-                      print('-------------------------------');
-                      print('-------------------------------');
-                      print(isUser);
                       Get.offAll(
                         const HomeView(),
                         transition: Transition.circularReveal,

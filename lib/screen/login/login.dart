@@ -109,9 +109,8 @@ class _LogInState extends State<LogIn> {
                         if (uid == null) {
                           //-----------User Not exist----------
                           var response = await loginController.creatNewUser(
-                            NewUser(
+                            NewUserSend(
                               fb: user["id"],
-                              tcaller: '',
                               email: user["email"],
                               name: user["name"],
                               image: user["picture"]["data"]["url"],
