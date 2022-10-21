@@ -4,14 +4,12 @@ import 'package:http/http.dart' as http;
 
 class User {
   final String name;
+  final String model;
 
-  const User({
-    required this.name,
-  });
+  const User({required this.name, required this.model});
 
-  static User fromJson(Map<String, dynamic> json) => User(
-        name: json['title'],
-      );
+  static User fromJson(Map<String, dynamic> json) =>
+      User(name: json['title'], model: json['model']);
 }
 
 class UserApi {
@@ -23,10 +21,13 @@ class UserApi {
       final List users = json.decode(response.body);
 
       return users.map((json) => User.fromJson(json)).where((user) {
+        final modelLower = user.model.toLowerCase();
         final nameLower = user.name.toLowerCase();
+        final addtwo = modelLower + nameLower;
+
         final queryLower = query.toLowerCase();
 
-        return nameLower.contains(queryLower);
+        return addtwo.contains(queryLower);
       }).toList();
     } else {
       throw Exception();

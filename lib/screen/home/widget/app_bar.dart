@@ -149,7 +149,7 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
                                 final user = suggestion!;
 
                                 return ListTile(
-                                  title: Text(user.name),
+                                  title: Text('${user.name} ${user.model}'),
                                 );
                               },
                               onSuggestionSelected: (User? suggestion) {
