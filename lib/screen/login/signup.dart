@@ -155,7 +155,7 @@ class SignUpWidget extends StatelessWidget {
                     var user = await GoogleSignInApi.login();
                     var isUser =
                         await loginController.userChackEmail(user!.email);
-                    print(isUser);
+                    // print(isUser);
 
                     if (isUser == null) {
                       // //*-----------User Not exist----------
@@ -182,6 +182,7 @@ class SignUpWidget extends StatelessWidget {
                         borderRadius: 10,
                         margin: const EdgeInsets.all(10),
                       );
+                      dbController.saveUserId(response);
                       Get.offAll(
                         const HomeView(),
                         transition: Transition.circularReveal,

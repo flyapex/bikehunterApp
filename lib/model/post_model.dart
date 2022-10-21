@@ -71,7 +71,6 @@ class SinglePostModel {
   SinglePostModel({
     required this.uid,
     required this.fb,
-    required this.tcaller,
     required this.email,
     required this.name,
     required this.image,
@@ -104,7 +103,6 @@ class SinglePostModel {
 
   int uid;
   String fb;
-  String tcaller;
   String email;
   String name;
   String image;
@@ -138,7 +136,6 @@ class SinglePostModel {
       SinglePostModel(
         uid: json["uid"],
         fb: json["fb"],
-        tcaller: json["tcaller"],
         email: json["email"],
         name: json["name"],
         image: json["image"],
@@ -172,7 +169,6 @@ class SinglePostModel {
   Map<String, dynamic> toJson() => {
         "uid": uid,
         "fb": fb,
-        "tcaller": tcaller,
         "email": email,
         "name": name,
         "image": image,
@@ -236,7 +232,6 @@ class Userdetails {
   Userdetails({
     required this.uid,
     required this.fb,
-    required this.tcaller,
     required this.email,
     required this.name,
     required this.image,
@@ -251,7 +246,6 @@ class Userdetails {
 
   int uid;
   String fb;
-  String tcaller;
   String email;
   String name;
   String image;
@@ -266,7 +260,6 @@ class Userdetails {
   factory Userdetails.fromJson(Map<String, dynamic> json) => Userdetails(
         uid: json["uid"],
         fb: json["fb"],
-        tcaller: json["tcaller"],
         email: json["email"],
         name: json["name"],
         image: json["image"],
@@ -282,7 +275,6 @@ class Userdetails {
   Map<String, dynamic> toJson() => {
         "uid": uid,
         "fb": fb,
-        "tcaller": tcaller,
         "email": email,
         "name": name,
         "image": image,

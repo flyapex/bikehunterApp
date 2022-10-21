@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:bikehunter/api/google_api.dart';
 import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/login_controller.dart';
 import 'package:bikehunter/model/login_model.dart';
@@ -100,6 +101,65 @@ class _LogInState extends State<LogIn> {
               const SizedBox(height: 20),
               InkWell(
                 onTap: () async {
+                  var user = await GoogleSignInApi.login();
+                  var isUser =
+                      await loginController.userChackEmail(user!.email);
+                  // print(isUser);
+
+                  if (isUser == null) {
+                    // //*-----------User Not exist----------
+                    loginController.name.value = user.displayName!;
+                    loginController.email.value = user.email;
+                    loginController.image.value = user.photoUrl ?? "";
+                    loginController.pass.value = passWardGenerator(6);
+                    var response = await loginController.creatNewUser(
+                      NewUserSend(
+                        fb: '',
+                        email: loginController.email.value,
+                        name: loginController.name.value,
+                        image: loginController.image.value,
+                        pass: loginController.pass.value,
+                        phone: '',
+                        wappnumber: '',
+                      ),
+                    );
+                    Get.snackbar(
+                      'Congrats👏🤝',
+                      '$response',
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.white,
+                      borderRadius: 10,
+                      margin: const EdgeInsets.all(10),
+                    );
+                    dbController.saveUserId(response);
+                    Get.offAll(
+                      const HomeView(),
+                      transition: Transition.circularReveal,
+                      duration: const Duration(milliseconds: 600),
+                    );
+                    // dbController.saveUserId();
+                  } else {
+                    //*-----------User exist----------
+                    dbController.saveUserId(isUser);
+                    Get.offAll(
+                      const HomeView(),
+                      transition: Transition.circularReveal,
+                      duration: const Duration(milliseconds: 600),
+                    );
+                  }
+                },
+                child: const Center(
+                  child: SocialIconsLogin(
+                    iconsize: 30,
+                    iconColor: Colors.red,
+                    icon: 'assets/icons/login/google.svg',
+                    title: "Continue with TrueCaller",
+                  ),
+                ),
+              ),
+              const SizedBox(height: 15),
+              InkWell(
+                onTap: () async {
                   final LoginResult result = await FacebookAuth.instance
                       .login(loginBehavior: LoginBehavior.webOnly);
                   if (result.status == LoginStatus.success) {
@@ -152,18 +212,6 @@ class _LogInState extends State<LogIn> {
                     iconColor: Colors.red,
                     icon: 'assets/icons/login/fb.svg',
                     title: "Continue with Facebook",
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
-              InkWell(
-                onTap: () async {},
-                child: const Center(
-                  child: SocialIconsLogin(
-                    iconsize: 30,
-                    iconColor: Colors.red,
-                    icon: 'assets/icons/login/call.svg',
-                    title: "Continue with TrueCaller",
                   ),
                 ),
               ),
