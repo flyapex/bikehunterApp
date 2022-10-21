@@ -1,6 +1,7 @@
 import 'package:bikehunter/constants/colors.dart';
 import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/location_controller.dart';
+import 'package:bikehunter/screen/home/widget/appbar_textfield/specific_model_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -144,6 +145,8 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
                         Expanded(
                           child: SizedBox(
                             child: TypeAheadFormField<User?>(
+                              debounceDuration:
+                                  const Duration(milliseconds: 500),
                               suggestionsCallback: UserApi.getUserSuggestions,
                               itemBuilder: (context, User? suggestion) {
                                 final user = suggestion!;
@@ -153,7 +156,9 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
                                 );
                               },
                               onSuggestionSelected: (User? suggestion) {
-                                print(suggestion!.name);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const Searched_bikes(),
+                                ));
                               },
                               suggestionsBoxDecoration:
                                   const SuggestionsBoxDecoration(
