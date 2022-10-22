@@ -7,6 +7,7 @@ import 'package:bikehunter/screen/post_now/new_post.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'widget/login_sheet.dart';
 import 'widget/post_list.dart';
 
 class HomeView extends StatefulWidget {
@@ -22,7 +23,7 @@ class _HomeViewState extends State<HomeView>
   bool get wantKeepAlive => true;
   bool _showFab = true;
   final PostController postController = Get.put(PostController());
-  final DBController dbController = Get.put(DBController());
+  final DBController dbController = Get.find();
 
   @override
   void initState() {
@@ -54,6 +55,7 @@ class _HomeViewState extends State<HomeView>
         }
       },
       child: Scaffold(
+        drawer: const Drawer(),
         backgroundColor: Colors.white,
         extendBodyBehindAppBar: true,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -74,21 +76,42 @@ class _HomeViewState extends State<HomeView>
                   ],
                 ),
                 onPressed: () {
-                  Get.bottomSheet(
-                    const NewPostPage(),
-                    elevation: 20.0,
-                    enableDrag: true,
-                    backgroundColor: Colors.white,
-                    isScrollControlled: true,
-                    ignoreSafeArea: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0),
+                  print(dbController.isLogin());
+                  if (dbController.isLogin() == 0) {
+                    Get.bottomSheet(
+                      const LoginSheet(),
+                      elevation: 20.0,
+                      enableDrag: true,
+                      backgroundColor: Colors.white,
+                      isScrollControlled: true,
+                      ignoreSafeArea: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0),
+                        ),
                       ),
-                    ),
-                    enterBottomSheetDuration: const Duration(milliseconds: 170),
-                  );
+                      enterBottomSheetDuration:
+                          const Duration(milliseconds: 170),
+                    );
+                  } else {
+                    Get.bottomSheet(
+                      const NewPostPage(),
+                      elevation: 20.0,
+                      enableDrag: true,
+                      backgroundColor: Colors.white,
+                      isScrollControlled: true,
+                      ignoreSafeArea: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20.0),
+                          topRight: Radius.circular(20.0),
+                        ),
+                      ),
+                      enterBottomSheetDuration:
+                          const Duration(milliseconds: 170),
+                    );
+                  }
                 },
               ),
             ),

@@ -1,4 +1,7 @@
+import 'package:bikehunter/controller/db_controller.dart';
+import 'package:bikehunter/screen/home/home_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'signup.dart';
 
@@ -24,6 +27,8 @@ class _SLHomeState extends State<SLHome> {
 
   @override
   Widget build(BuildContext context) {
+    final DBController dbController = Get.find();
+
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
@@ -41,7 +46,33 @@ class _SLHomeState extends State<SLHome> {
           // Container(
           //   color: Colors.deepPurpleAccent,
           // ),
-          const SignUpWidget()
+          const SignUpWidget(),
+          SafeArea(
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 22),
+                child: InkWell(
+                  onTap: () {
+                    dbController.saveUserId(0);
+                    Get.offAll(
+                      const HomeView(),
+                      transition: Transition.circularReveal,
+                      duration: const Duration(milliseconds: 600),
+                    );
+                  },
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

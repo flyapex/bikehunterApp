@@ -1,7 +1,8 @@
 import 'package:bikehunter/constants/colors.dart';
 import 'package:bikehunter/controller/db_controller.dart';
 import 'package:bikehunter/controller/location_controller.dart';
-import 'package:bikehunter/screen/home/widget/appbar_textfield/specific_model_list.dart';
+import 'package:bikehunter/screen/home/sort_element.dart';
+import 'package:bikehunter/screen/home/sort_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -43,6 +44,19 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
       titleSpacing: 0,
       title: Row(
         children: [
+          InkWell(
+            onTap: () {
+              Scaffold.of(context).openDrawer();
+            },
+            child: Container(
+              height: 20,
+              width: 20,
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+          ),
           SizedBox(
             height: 37,
             child: SvgPicture.asset(
@@ -105,7 +119,23 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
           },
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Get.bottomSheet(
+              const SortElement(),
+              elevation: 20.0,
+              enableDrag: true,
+              backgroundColor: Colors.white,
+              isScrollControlled: true,
+              ignoreSafeArea: true,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+              ),
+              enterBottomSheetDuration: const Duration(milliseconds: 170),
+            );
+          },
           child: Container(
             margin: const EdgeInsets.only(right: 5),
             child: SvgPicture.asset(
@@ -156,9 +186,7 @@ class _CustomeAppBarState extends State<CustomeAppBar> {
                                 );
                               },
                               onSuggestionSelected: (User? suggestion) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const Searched_bikes(),
-                                ));
+                                Get.to(const SortPage());
                               },
                               suggestionsBoxDecoration:
                                   const SuggestionsBoxDecoration(

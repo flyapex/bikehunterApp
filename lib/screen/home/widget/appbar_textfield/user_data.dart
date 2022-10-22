@@ -23,8 +23,8 @@ class UserApi {
       return users.map((json) => User.fromJson(json)).where((user) {
         final modelLower = user.model.toLowerCase();
         final nameLower = user.name.toLowerCase();
-        // ignore: unused_local_variable
-        final modeLower = user.model.toLowerCase();
+        final addtwo = modelLower + nameLower;
+
         final queryLower = query.toLowerCase();
 
         return addtwo.contains(queryLower);
