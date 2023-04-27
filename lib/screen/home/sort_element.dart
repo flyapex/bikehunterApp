@@ -53,9 +53,9 @@ class _SortElementState extends State<SortElement> {
             NavigationRail(
               selectedIndex: _selectedIndex,
               onDestinationSelected: changeDestination,
-              selectedIconTheme: IconThemeData(color: Colors.black),
-              unselectedIconTheme: IconThemeData(color: Colors.black),
-              selectedLabelTextStyle: TextStyle(color: Colors.black),
+              selectedIconTheme: const IconThemeData(color: Colors.black),
+              unselectedIconTheme: const IconThemeData(color: Colors.black),
+              selectedLabelTextStyle: const TextStyle(color: Colors.black),
               labelType: NavigationRailLabelType.selected,
               useIndicator: true,
               indicatorColor: Colors.yellow,
